@@ -29,7 +29,8 @@ if (isset($_GET['view'])) {
         </header>
         <div class="restaurant-content">
             <?php if ($restaurant_found) : ?>
-            <?php echo $restaurant['name']; ?>
+
+            <img src="<?php echo $restaurant['logo']; ?>" />
             <?php else : ?>
             <img src="<?php echo $restaurant['logo']; ?>" />
 
