@@ -168,7 +168,7 @@
  input[type='reset'].button-clear[disabled]:hover,
  input[type='submit'].button-clear[disabled]:focus,
  input[type='submit'].button-clear[disabled]:hover {
-     color: #830D09;
+     color: #9b4dca;
  }
  
  code {
@@ -601,7 +601,7 @@
  }
  
  nav#site-navigation h1 {
-     background: #000 url('header-img.jpg') no-repeat center;
+     background: #fff url('./header-img.jpg') no-repeat center;
      background-size: 110%;
      margin-bottom:0;
      padding-bottom:2rem;
@@ -617,12 +617,11 @@
      font-size:6.6rem;
      color:white;
  }
-
+ 
  nav#site-navigation ul {
-    background: #830D09;
-    padding: 5rem;
-}
-
+     background: #830D09;
+     padding:3rem;
+ }
  nav#site-navigation ul a {
      color:white;
  }
