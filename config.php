@@ -12,3 +12,6 @@ define('DB_USER', 'root');
 define('DB_PASSWORD', 'root');
 define('DB_DATABASE', 'project');
 define('DB_PORT', '3306');
+
+define('ADMIN_USER', 'andrey');
+define('ADMIN_PASS', 'andreypass');

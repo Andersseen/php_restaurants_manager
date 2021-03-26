@@ -16,6 +16,10 @@
                 <a href="index.php">Proyecto</a>
             </h1>
             <ul class="main-menu column clearfix">
+                <li><a href="<?php echo SITE_URL; ?>/index.php">Home</a></li>
+                <li><a href="login.php">Login</a></li>
+                <li><a href="?logout=true">Logout</a></li>
+
             </ul>
         </div>
     </nav>

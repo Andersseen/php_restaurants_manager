@@ -15,3 +15,5 @@ $app_db = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT);
 if (!$app_db) {
     die('Error al conectar con la base de datos');
 }
+
+require 'inc/helpers.php';
