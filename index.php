@@ -21,25 +21,24 @@ if (isset($_GET['view'])) {
     <?php foreach ($all_restaurants as $restaurant) : ?>
     <article class="restaurant">
         <header>
-            <h2 class="post-title">
-                <a href="?view=<?php echo $restaurant['id']; ?>">
-                    <?php echo $restaurant['name']; ?>
+            <h2 class="restaurant-title">
+                <a href="?view=<?php echo $restaurant->get_id(); ?>">
+                    <?php echo $restaurant->get_name(); ?>
                 </a>
             </h2>
         </header>
         <div class="restaurant-content">
             <?php if ($restaurant_found) : ?>
+            <img src="<?php echo $restaurant->get_logo(); ?>" />
 
-            <img src="<?php echo $restaurant['logo']; ?>" />
             <?php else : ?>
-            <img src="<?php echo $restaurant['logo']; ?>" />
-
+            <img src="<?php echo $restaurant->get_logo(); ?>" />
 
             <?php endif; ?>
         </div>
-
     </article>
     <?php endforeach; ?>
 </div>
+
 
 <?php require './templates/footer.php'; ?>
