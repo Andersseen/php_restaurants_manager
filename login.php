@@ -3,24 +3,20 @@
 $error = false;
 
 
-
 if (isset($_POST['submit-login'])) {
 
     if (!check_hash('login', $_POST['hash'])) {
         die('con que hackeando ehhh¿?¿?');
     }
 
-
     if (!login($_POST['username'], $_POST['password'])) {
         $error = true;
     }
 }
 
-
 if (is_logged_in()) {
     redirect_to('index.php');
 }
-
 
 ?>
 

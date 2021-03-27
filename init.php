@@ -22,3 +22,8 @@ require('inc/class-db.php');
 
 //conexión a la base de datos creandome un objeto de la clase Db
 $app_db = new Db(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT);
+
+//Logout
+if (isset($_GET['logout'])) {
+    logout();
+}

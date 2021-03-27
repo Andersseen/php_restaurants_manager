@@ -48,3 +48,40 @@ function get_restaurant($restaurant_id)
 
     return $restaurant_obj;
 }
+
+/*
+*Insertar nuevo post
+*
+* @param $title
+* @param $excerpt
+* @param $content
+*/
+function insert_restaurant($name, $logo)
+{
+
+    global $app_db;
+
+    $name = $app_db->real_escape_string($name);
+    $logo = $app_db->real_escape_string($logo);
+
+    $query = " INSERT INTO restaurants
+    ( 'name', 'logo')
+    VALUES
+    ( '$name', '$logo')";
+
+    $result = $app_db->query($query);
+}
+
+/*
+*Elimina un post
+*
+* @param $id
+*/
+function delete_restaurant($id)
+{
+    global $app_db;
+
+    $id = intval($id);
+
+    $result = $app_db->query("DELETE FROM restaurants WHERE id = $id");
+}
