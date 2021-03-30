@@ -34,7 +34,7 @@ function get_restaurant($restaurant_id)
 
     global $app_db;
 
-    $post_id = intval($restaurant_id);
+    $$restaurant_id = intval($restaurant_id);
 
     $query = 'SELECT * FROM restaurants WHERE id = ' . $restaurant_id;
 
@@ -59,15 +59,16 @@ function get_restaurant($restaurant_id)
 function insert_restaurant($name, $logo)
 {
 
+
     global $app_db;
 
     $name = $app_db->real_escape_string($name);
     $logo = $app_db->real_escape_string($logo);
 
     $query = " INSERT INTO restaurants
-    ( 'name', 'logo')
+    (name, logo)
     VALUES
-    ( '$name', '$logo')";
+    ( '$name' ,'$logo')";
 
     $result = $app_db->query($query);
 }
@@ -84,4 +85,24 @@ function delete_restaurant($id)
     $id = intval($id);
 
     $result = $app_db->query("DELETE FROM restaurants WHERE id = $id");
+}
+
+
+
+function image_restaurant($logo_found)
+{
+    global $app_db;
+
+    //Extraer imagen de la BD mediante GET
+    $result = $app_db->query("SELECT logo FROM restaurants WHERE id = $logo_found");
+
+    if ($result->num_rows > 0) {
+        $imgDatos = $result->fetch_assoc();
+
+        //Mostrar Imagen
+        header("Content-type: image/jpg");
+        echo $imgDatos['logo'];
+    } else {
+        echo 'Imagen no existe...';
+    }
 }

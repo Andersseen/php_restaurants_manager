@@ -7,13 +7,13 @@
 </div>
 <?php endif; ?>
 
-<form action="" method="post">
+<form method="post" action="" enctype="multipart/form-data">
 
     <label for="name">Nombre (requerido)</label>
     <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($name, ENT_QUOTES); ?>">
 
     <label for="logo">Logo (requerido)</label>
-    <input type="file" name="logo" id="logo" value="<?php echo htmlspecialchars($logo, ENT_QUOTES); ?>">
+    <input type="file" name="logo" id="logo" accept="image/x-png,image/gif,image/jpeg" multiple>
 
     <p>
         <input type="submit" name="submit-new-restaurant" value="Nuevo restaurant">

@@ -20,14 +20,30 @@ switch ($action) {
 
             if (isset($_POST['submit-new-restaurant'])) {
                 //se ha enviado el formulario
+
+
                 $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-                $logo = filter_input(INPUT_POST, 'logo', FILTER_SANITIZE_STRING);
+                // $logo = filter_input(INPUT_POST, 'logo', FILTER_SANITIZE_STRING);
+                $logo = $_FILES['logo']['tmp_name'];
+                $logo_name = $_FILES['logo']['name'];
+                //ruta de la imagen para guardar la ruta en la bbdd
+                $imgContent = addslashes(file_get_contents($logo));
+                $dir_download = $_SERVER['DOCUMENT_ROOT'] . '/mi-proecto/proyecto/assets/logos/';
+                $logo_db = './assets/logos/' . $logo_name;
+
+
+
+
 
 
                 if (empty($name) || empty($logo)) {
                     $error = true;
                 } else {
-                    insert_restaurant($name, $logo);
+                    //guardo
+                    sleep(2);
+                    // Muevo la imagen desde el directorio temporal a nuestra ruta indicada anteriormente
+                    move_uploaded_file($logo, $dir_download . $logo_name);
+                    insert_restaurant($name, $logo_db);
                     //redirect_to( 'index.php?success=true' );
                     redirect_to('admin?action=list-restaurants&success=true');
                 }

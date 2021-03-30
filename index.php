@@ -32,7 +32,11 @@ if (isset($_GET['view'])) {
             <img src="<?php echo $restaurant->get_logo(); ?>" />
 
             <?php else : ?>
-            <img src="<?php echo $restaurant->get_logo(); ?>" />
+
+            <a href="?view=<?php echo $restaurant->get_id(); ?>">
+
+                <img src="<?php $restaurant->get_logo(); ?>" />
+            </a>
 
             <?php endif; ?>
         </div>

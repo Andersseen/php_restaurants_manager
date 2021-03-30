@@ -13,7 +13,7 @@
     <nav id="site-navigation" class="row row-center" role="navigation">
         <div class="column">
             <h1>
-                <a href="index.php">Micro WordPress / CMS</a>
+                <a href="index.php">Sistema de restaurantes</a>
             </h1>
             <ul class="main-menu column clearfix">
                 <li><a href="<?php echo SITE_URL; ?>/index.php">Home</a></li>
