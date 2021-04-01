@@ -44,8 +44,21 @@ function check_hash($action, $hash)
  */
 function is_logged_in()
 {
-    $is_user_logged_in = isset($_SESSION['user']) && $_SESSION['user'] === ADMIN_USER;
-    return $is_user_logged_in;
+    global $conn;
+    if (!empty(isset($_SESSION['user_id']))) {
+        $records = $conn->prepare('SELECT id, username, password FROM users WHERE id = :id');
+        $records->bindParam(':id', $_SESSION['user_id']);
+        $records->execute();
+        $results = $records->fetch(PDO::FETCH_ASSOC);
+
+        $user = null;
+
+        if (count($results) > 0) {
+            $results;
+            $is_user_logged_in = $results;
+            return $is_user_logged_in;
+        }
+    }
 }
 
 /**
@@ -59,19 +72,74 @@ function is_logged_in()
  */
 function login($username, $password)
 {
-    if ($username === ADMIN_USER && $password === ADMIN_PASS) {
+    // if (!empty($username) && !empty($password)) {
+    //     if ($username === ADMIN_USER && $password === ADMIN_PASS) {
 
-        $_SESSION['user'] = ADMIN_USER;
-        return true;
+    //         $_SESSION['user'] = ADMIN_USER;
+    //         return true;
+    //     }
+
+    global $conn;
+    $records = $conn->prepare('SELECT id, username, password FROM users WHERE username = :username');
+    $records->bindParam(':username', $_POST['username']);
+    $records->execute();
+    $results = $records->fetch(PDO::FETCH_ASSOC);
+
+    $message = '';
+
+    if (count($results) > 0 && $results['password']) {
+        $_SESSION['user_id'] = $results['id'];
+        redirect_to("index.php");
+    } else {
+        $message = 'Sorry, those credentials do not match';
     }
-    return false;
 }
+
+
+/**
+ * create_user()
+ * Parte del login donde validamos el formulario
+ * 
+ * @param $username
+ * @param $password
+ * 
+ * 
+ */
+
+
+function create_user($name, $surname, $email, $username, $password, $role)
+{
+    global $app_db;
+
+    $name = $app_db->real_escape_string($name);
+    $surname = $app_db->real_escape_string($surname);
+    $email = $app_db->real_escape_string($email);
+    $username = $app_db->real_escape_string($username);
+    $password = $app_db->real_escape_string($password);
+    $password = hash('sha512', $password);
+    $role = 2;
+
+    $query = " INSERT INTO users
+    (name, surname, email, username, password, id_role )
+    VALUES
+    ( '$name' ,'$surname', '$email', '$username', '$password', $role)";
+
+    $verification_username = $app_db->query("SELECT * FROM users WHERE username = '$username'");
+    if (mysqli_num_rows($verification_username) > 0) {
+        redirect_to('signup.php?error=true');
+    } else {
+        $result = $app_db->query($query);
+        redirect_to('index.php?success=true');
+    }
+}
+
 
 /**
  * logout()
  */
 function logout()
 {
+    unset($_SESSION['user_id']);
     unset($_SESSION['user']);
     redirect_to('index.php');
     session_destroy(); //destruyo la sesión una vez que he deslogueado al usuario

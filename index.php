@@ -12,10 +12,22 @@ if (isset($_GET['view'])) {
         $all_restaurants = [$restaurant_found];
     }
 }
-
 ?>
 
+
+
 <?php require './templates/header.php'; ?>
+<?php if (!empty($user)) : ?>
+<br> Hola <?= $user['username']; ?>
+<?php endif; ?>
+
+<?php if (isset($_GET['success'])) : ?>
+<div class="success">
+
+    <?php echo 'Has creado usuario correctamente!'; ?>
+
+</div>
+<?php endif; ?>
 
 <div class="restaurants">
     <?php foreach ($all_restaurants as $restaurant) : ?>

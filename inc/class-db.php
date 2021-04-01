@@ -49,6 +49,11 @@ class Db
         return mysqli_fetch_assoc($result);
     }
 
+    public function fetch_array($result)
+    {
+        return mysqli_fetch_array($result);
+    }
+
     //método que va a escapar los caracteres espciales de la bbdd
     public function real_escape_string($string)
     {

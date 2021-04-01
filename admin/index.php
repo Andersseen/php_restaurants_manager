@@ -2,9 +2,9 @@
 
 require '../init.php';
 
-if (!is_logged_in()) {
-    redirect_to('login.php');
-}
+// if (!is_logged_in()) {
+//     redirect_to('login.php');
+// }
 
 //Controlador frontal manejando el action
 $action = isset($_GET['action']) ? $_GET['action'] : '';
