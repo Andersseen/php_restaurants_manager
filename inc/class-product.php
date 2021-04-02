@@ -5,13 +5,15 @@ class Product
     public $id = 0;
     public $name = '';
     public $price = '';
+    public $id_restaurant = 0;
 
-    public function __construct($id, $name, $price)
+    public function __construct($id, $name, $price, $id_restaurant)
     {
 
         $this->id = $id;
         $this->name = $name;
         $this->price = $price;
+        $this->id_restaurant = $id_restaurant;
     }
 
 
@@ -28,6 +30,10 @@ class Product
     {
         return $this->price;
     }
+    public function get_id_restaurant()
+    {
+        return $this->id_restaurant;
+    }
 
 
     //MÉTODOS SET PARA MODIFICAR LOS VALORES DE LAS PROPIEDADES
@@ -42,5 +48,9 @@ class Product
     public function set_price($price)
     {
         $this->price = $price;
+    }
+    public function set_id_restaurant($id_restaurant)
+    {
+        $this->price = $id_restaurant;
     }
 }

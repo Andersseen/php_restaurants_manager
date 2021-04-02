@@ -3,22 +3,36 @@
 
 
 $all_restaurants = get_all_restaurants();
+$all_products = get_all_products();
 
 //Nueva Lógica para mostrar un post u otro individualemnte cogiéndolos de la bbdd
 $restaurant_found = false;
+$product_found = false;
 if (isset($_GET['view'])) {
     $restaurant_found = get_restaurant($_GET['view']);
+    // $all_products = get_product_for($restaurant_found);
+    $product_found = get_product_for($_GET['view']);
     if ($restaurant_found) {
         $all_restaurants = [$restaurant_found];
+        // $all_products = get_product_for($restaurant_found);
+        // $product_found = get_product_for($_GET['view']);
+        $all_products = [$product_found];
     }
+    // if ($product_found) {
+    //     $all_products = [$product_found];
+    // }
 }
+
 ?>
 
 
-
+<?php require 'verification.php' ?>
 <?php require './templates/header.php'; ?>
-<?php if (!empty($user)) : ?>
-<br> Hola <?= $user['username']; ?>
+<?php if (!empty($user_ses)) : ?>
+<div class="title-username">
+    <h5>Hola</h5>
+    <h5> <?php echo $user_ses['username']; ?></h5>
+</div>
 <?php endif; ?>
 
 <?php if (isset($_GET['success'])) : ?>
@@ -31,29 +45,35 @@ if (isset($_GET['view'])) {
 
 <div class="restaurants">
     <?php foreach ($all_restaurants as $restaurant) : ?>
-    <article class="restaurant">
-        <header>
-            <h2 class="restaurant-title">
-                <a href="?view=<?php echo $restaurant->get_id(); ?>">
-                    <?php echo $restaurant->get_name(); ?>
-                </a>
-            </h2>
-        </header>
-        <div class="restaurant-content">
-            <?php if ($restaurant_found) : ?>
-            <img src="<?php echo $restaurant->get_logo(); ?>" />
-
-            <?php else : ?>
-
-            <a href="?view=<?php echo $restaurant->get_id(); ?>">
-
-                <img src="<?php $restaurant->get_logo(); ?>" />
-            </a>
-
-            <?php endif; ?>
-        </div>
-    </article>
+    <?php require './templates/article-restaurant.php'; ?>
     <?php endforeach; ?>
+    <?php if ($restaurant_found) : ?>
+
+    <div class="restaurant-content">
+
+        <img src="<?php echo $restaurant->get_logo(); ?>" />
+        <?php foreach ($all_products as $product) : ?>
+        <div class="restaurant-menu">
+            <?php echo $product->get_name(); ?>
+            <?php echo $product->get_price(); ?>
+        </div>
+        <?php endforeach; ?>
+
+
+
+        <?php else : ?>
+
+        <a href="?view=<?php echo $restaurant->get_id(); ?>">
+
+            <img src="<?php $restaurant->get_logo(); ?>" />
+        </a>
+
+        <?php endif; ?>
+    </div>
+    <?php require './templates/restaurant-content-end.php'; ?>
+
+
+
 </div>
 
 

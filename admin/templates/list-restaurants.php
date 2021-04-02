@@ -1,3 +1,4 @@
+<?php require __DIR__ . '/../../verification.php' ?>
 <?php require __DIR__ . '/../../templates/header.php' ?>
 
 <?php if (isset($_GET['success'])) : ?>

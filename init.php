@@ -15,6 +15,12 @@ date_default_timezone_set(SITE_TIMEZONE);
 require('inc/class-restaurant.php');
 require('inc/restaurants.php');
 
+require('inc/class-user.php');
+require('inc/users.php');
+
+require('inc/class-product.php');
+require('inc/products.php');
+
 
 require('inc/helpers.php');
 require('inc/class-db.php');

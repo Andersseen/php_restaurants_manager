@@ -34,7 +34,7 @@ function get_restaurant($restaurant_id)
 
     global $app_db;
 
-    $$restaurant_id = intval($restaurant_id);
+    $restaurant_id = intval($restaurant_id);
 
     $query = 'SELECT * FROM restaurants WHERE id = ' . $restaurant_id;
 
@@ -85,24 +85,4 @@ function delete_restaurant($id)
     $id = intval($id);
 
     $result = $app_db->query("DELETE FROM restaurants WHERE id = $id");
-}
-
-
-
-function image_restaurant($logo_found)
-{
-    global $app_db;
-
-    //Extraer imagen de la BD mediante GET
-    $result = $app_db->query("SELECT logo FROM restaurants WHERE id = $logo_found");
-
-    if ($result->num_rows > 0) {
-        $imgDatos = $result->fetch_assoc();
-
-        //Mostrar Imagen
-        header("Content-type: image/jpg");
-        echo $imgDatos['logo'];
-    } else {
-        echo 'Imagen no existe...';
-    }
 }

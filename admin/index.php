@@ -71,6 +71,84 @@ switch ($action) {
             require 'templates/list-restaurants.php';
             break;
         }
+    case 'list-users': {
+
+
+            //borrar user de la base de datos
+            if (isset($_GET['delete-user'])) {
+                $id = $_GET['delete-user'];
+
+                if (!check_hash('delete-user-' . $id, $_GET['hash'])) {
+                    die('con que hackeando ehhh¿?¿?');
+                }
+
+                delete_user($id);
+                redirect_to('admin?action=list-users&success-del=true');
+            }
+            if (isset($_GET['update-admin'])) {
+                $id = $_GET['update-admin'];
+
+                if (!check_hash('update-admin-' . $id, $_GET['hash'])) {
+                    die('con que hackeando ehhh¿?¿?');
+                }
+
+                update_admin($id);
+                redirect_to('admin?action=list-users&success-upd=true');
+            }
+            if (isset($_GET['update-user'])) {
+                $id = $_GET['update-user'];
+
+                if (!check_hash('update-user-' . $id, $_GET['hash'])) {
+                    die('con que hackeando ehhh¿?¿?');
+                }
+
+                update_user($id);
+                redirect_to('admin?action=list-users&success-upd=true');
+            }
+
+            $all_users = get_all_users();
+
+            require 'templates/list-users.php';
+            break;
+        }
+    case 'new-admin': {
+            //formulario de new post
+            //procesando el formulario
+            $error = false;
+
+            $name = '';
+            $surname = '';
+            $email = '';
+            $username = '';
+            $password = '';
+            $id_role = 1;
+
+
+            if (isset($_POST['submit-new-admin'])) {
+                //se ha enviado el formulario
+
+
+                $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+                $surname = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_STRING);
+                $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+                $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+                $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+                $id_role = 1;
+
+                if (empty($name) || empty($surname) || empty($email) || empty($username)) {
+                    $error = true;
+                } else {
+                    //guardo
+                    // Muevo la imagen desde el directorio temporal a nuestra ruta indicada anteriormente
+
+                    insert_user($name, $surname, $email, $username, $password, $id_role);
+                    //redirect_to( 'index.php?success=true' );
+                    redirect_to('admin?action=list-users&success=true');
+                }
+            }
+            require 'templates/new-admin.php';
+            break;
+        }
     default: {
             require 'templates/admin.php';
         }
