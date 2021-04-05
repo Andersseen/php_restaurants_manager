@@ -86,3 +86,36 @@ function delete_restaurant($id)
 
     $result = $app_db->query("DELETE FROM restaurants WHERE id = $id");
 }
+
+function update_restaurant($name, $logo, $id_rest)
+{
+
+
+    global $app_db;
+    $id_rest = intval($id_rest);
+
+    $name = $app_db->real_escape_string($name);
+    $logo = $app_db->real_escape_string($logo);
+
+    $query = " UPDATE restaurants SET
+    name = '$name' , logo = '$logo'
+    where id =" . $id_rest;
+
+    $result = $app_db->query($query);
+}
+
+function update_restaurant_without_img($name, $id_rest)
+{
+
+
+    global $app_db;
+    $id_rest = intval($id_rest);
+
+    $name = $app_db->real_escape_string($name);
+
+    $query = " UPDATE restaurants SET
+    name = '$name'
+    where id =" . $id_rest;
+
+    $result = $app_db->query($query);
+}

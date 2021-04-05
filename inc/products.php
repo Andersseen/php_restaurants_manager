@@ -24,6 +24,29 @@ function get_all_products()
 
     return $array_products_obj;
 }
+function get_all_products_for($product_id)
+{
+    global $app_db;
+
+    $product_id = intval($product_id);
+
+    $query = 'SELECT * FROM products WHERE id_restaurant = ' . $product_id;
+
+    $result = $app_db->query($query);
+    $array_products_obj = [];
+    // $product_found = $app_db->fetch_assoc($result);
+    while ($product_found = $app_db->fetch_assoc($result)) {
+        $product_found = new Product($product_found['id'], $product_found['name'], $product_found['price'], $product_found['id_restaurant']);
+        $array_products_obj[] = $product_found;
+    }
+
+
+    //convierto la fila/que he recogido de la tabla como array asociativo en un objeto y es lo que devuelvo ahora
+
+
+
+    return $array_products_obj;
+}
 
 /**
  * Busca y devuelve un solo post
@@ -41,6 +64,7 @@ function get_product($product_id)
     $result = $app_db->query($query);
 
     $product_found = $app_db->fetch_assoc($result);
+
 
     //convierto la fila/que he recogido de la tabla como array asociativo en un objeto y es lo que devuelvo ahora
 
@@ -60,6 +84,7 @@ function get_product_for($product_id)
     $result = $app_db->query($query);
 
     $product_found = $app_db->fetch_assoc($result);
+
 
     //convierto la fila/que he recogido de la tabla como array asociativo en un objeto y es lo que devuelvo ahora
 
@@ -106,4 +131,22 @@ function delete_product($id)
     $id = intval($id);
 
     $result = $app_db->query("DELETE FROM products WHERE id = $id");
+}
+
+
+function update_product($name, $price, $id)
+{
+
+
+    global $app_db;
+    $id = intval($id);
+
+    $name = $app_db->real_escape_string($name);
+    $price = $app_db->real_escape_string($price);
+
+    $query = " UPDATE products SET
+    name = '$name' , price = '$price'
+    where id =" . $id;
+
+    $result = $app_db->query($query);
 }

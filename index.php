@@ -5,6 +5,7 @@
 $all_restaurants = get_all_restaurants();
 $all_products = get_all_products();
 
+
 //Nueva Lógica para mostrar un post u otro individualemnte cogiéndolos de la bbdd
 $restaurant_found = false;
 $product_found = false;
@@ -12,15 +13,12 @@ if (isset($_GET['view'])) {
     $restaurant_found = get_restaurant($_GET['view']);
     // $all_products = get_product_for($restaurant_found);
     $product_found = get_product_for($_GET['view']);
+    $all_products_for = get_all_products_for($_GET['view']);
     if ($restaurant_found) {
         $all_restaurants = [$restaurant_found];
-        // $all_products = get_product_for($restaurant_found);
-        // $product_found = get_product_for($_GET['view']);
+
         $all_products = [$product_found];
     }
-    // if ($product_found) {
-    //     $all_products = [$product_found];
-    // }
 }
 
 ?>
@@ -46,20 +44,24 @@ if (isset($_GET['view'])) {
 <div class="restaurants">
     <?php foreach ($all_restaurants as $restaurant) : ?>
     <?php require './templates/article-restaurant.php'; ?>
+
+
     <?php endforeach; ?>
     <?php if ($restaurant_found) : ?>
 
     <div class="restaurant-content">
 
         <img src="<?php echo $restaurant->get_logo(); ?>" />
-        <?php foreach ($all_products as $product) : ?>
         <div class="restaurant-menu">
-            <?php echo $product->get_name(); ?>
-            <?php echo $product->get_price(); ?>
+            <h4>Menu</h4>
+            <?php foreach ($all_products_for as $product) : ?>
+            <div class="restaurant-menu-item">
+                <?php echo $product->get_name(); ?>
+                <?php echo $product->get_price(); ?>
+            </div>
+
+            <?php endforeach; ?>
         </div>
-        <?php endforeach; ?>
-
-
 
         <?php else : ?>
 

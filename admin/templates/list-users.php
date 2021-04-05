@@ -19,6 +19,8 @@
 <?php endif; ?>
 
 
+
+
 <table>
     <?php foreach ($all_users as $user) : ?>
     <tr>
@@ -41,5 +43,9 @@
     <?php endif; ?>
     <?php endforeach; ?>
 </table>
+<div class="restaurant-content-end">
+    <a href="<?php echo SITE_URL . '/admin/'; ?>">Volver
+    </a>
+</div>
 
 <?php require __DIR__ . '/../../templates/footer.php' ?>

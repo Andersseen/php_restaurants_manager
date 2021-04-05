@@ -37,6 +37,10 @@
 .restaurant-menu{
     margin-right: 20%;
 }
+.restaurant-menu > .restaurant-menu-item{
+    display: flex;
+    flex-direction: column;
+}
 .restaurant-content-end > a{
     display: block;
     text-align: right;
