@@ -42,23 +42,19 @@ function check_hash($action, $hash)
  * Comprueba si el usuario administrador ha hecho login.
  * @return bool
  */
-function is_logged_in()
+function is_logged()
 {
     global $conn;
-    if (!empty(isset($_SESSION['user_id']))) {
-        $records = $conn->prepare('SELECT id, username, password FROM users WHERE id = :id');
-        $records->bindParam(':id', $_SESSION['user_id']);
-        $records->execute();
-        $results = $records->fetch(PDO::FETCH_ASSOC);
+    if (!empty($user_ses)) {
+        // $records = $conn->prepare('SELECT * password FROM users WHERE id = :id');
+        // $records->bindParam(':id', $_SESSION['user_id']);
+        // $records->execute();
+        // $results = $records->fetch();
 
-        $user = null;
-
-        if (count($results) > 0) {
-            $results;
-            $is_user_logged_in = $results;
-            return $is_user_logged_in;
-        }
+        // s
+        return true;
     }
+    return false;
 }
 
 /**
@@ -139,8 +135,18 @@ function create_user($name, $surname, $email, $username, $password, $role)
  */
 function logout()
 {
+
     unset($_SESSION['user_id']);
     unset($_SESSION['user']);
     redirect_to('index.php');
     session_destroy(); //destruyo la sesión una vez que he deslogueado al usuario
+}
+
+function delete_all_in_cart()
+{
+
+    global $app_db;
+
+    $query = "TRUNCATE TABLE `shopping_cart`";
+    $result = $app_db->query($query);
 }

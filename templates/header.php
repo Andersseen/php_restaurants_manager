@@ -8,7 +8,7 @@
 <title>Sistema de gestion de los restaurantes</title>
 <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/global.css">
 <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/main.css">
-<link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/style.css">
+<link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/styles.css">
 </head>
 
 <body>

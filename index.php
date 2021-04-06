@@ -1,10 +1,9 @@
 <?php require 'init.php'; ?>
+<?php include_once 'procces.php'; ?>
 <?php
-
 
 $all_restaurants = get_all_restaurants();
 $all_products = get_all_products();
-
 
 //Nueva Lógica para mostrar un post u otro individualemnte cogiéndolos de la bbdd
 $restaurant_found = false;
@@ -27,55 +26,66 @@ if (isset($_GET['view'])) {
 <?php require 'verification.php' ?>
 <?php require './templates/header.php'; ?>
 <?php if (!empty($user_ses)) : ?>
-<div class="title-username">
-    <h5>Hola</h5>
-    <h5> <?php echo $user_ses['username']; ?></h5>
-</div>
+    <div class="title-username">
+        <h5>Hola</h5>
+        <h5> <?php echo $user_ses['username']; ?></h5>
+    </div>
 <?php endif; ?>
 
 <?php if (isset($_GET['success'])) : ?>
-<div class="success">
+    <div class="success">
 
-    <?php echo 'Has creado usuario correctamente!'; ?>
+        <?php echo 'Has creado usuario correctamente!'; ?>
 
-</div>
+    </div>
 <?php endif; ?>
 
 <div class="restaurants">
     <?php foreach ($all_restaurants as $restaurant) : ?>
-    <?php require './templates/article-restaurant.php'; ?>
+        <?php require './templates/article-restaurant.php'; ?>
 
 
     <?php endforeach; ?>
     <?php if ($restaurant_found) : ?>
 
-    <div class="restaurant-content">
+        <div class="restaurant-content">
 
-        <img src="<?php echo $restaurant->get_logo(); ?>" />
-        <div class="restaurant-menu">
-            <h4>Menu</h4>
-            <?php foreach ($all_products_for as $product) : ?>
-            <div class="restaurant-menu-item">
-                <?php echo $product->get_name(); ?>
-                <?php echo $product->get_price(); ?>
+            <img class="img__item" src="<?php echo $restaurant->get_logo(); ?>" />
+            <div class="restaurant-menu">
+                <h4>Menu</h4>
+                <?php foreach ($all_products_for as $product) : ?>
+                    <div class="restaurant-menu-item">
+                        <div class="menu__item">
+
+                            <?php echo $product->get_name(); ?>
+                            <?php echo $product->get_price(); ?>
+                            <form action="" method="post">
+                                <input type="hidden" name="id_product" value="<?php echo $product->id ?>">
+                                <button>Agregar al carrito</button>
+                            </form>
+                        </div>
+                    </div>
+
+                <?php endforeach; ?>
             </div>
-
-            <?php endforeach; ?>
-        </div>
 
         <?php else : ?>
 
-        <a href="?view=<?php echo $restaurant->get_id(); ?>">
+            <a href="?view=<?php echo $restaurant->get_id(); ?>">
 
-            <img src="<?php $restaurant->get_logo(); ?>" />
-        </a>
+                <img src="<?php $restaurant->get_logo(); ?>" />
+            </a>
 
         <?php endif; ?>
-    </div>
-    <?php require './templates/restaurant-content-end.php'; ?>
+        </div>
+        <?php require './templates/restaurant-content-end.php'; ?>
 
 
 
+</div>
+<div class="restaurant-content-end">
+    <a href="<?php echo SITE_URL . '/pdo/view_cart.php'; ?>">home
+    </a>
 </div>
 
 

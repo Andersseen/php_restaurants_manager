@@ -30,9 +30,10 @@
     display: flex;
     justify-content: space-between;
 }
-.restaurant-content>img{
+.restaurant-content > img.img__item{
     border-radius: 50%;
-    width: 30%;
+    max-width: 200px;
+    max-height: 200px;
 }
 .restaurant-menu{
     margin-right: 20%;
@@ -40,6 +41,12 @@
 .restaurant-menu > .restaurant-menu-item{
     display: flex;
     flex-direction: column;
+}
+.restaurant-menu-item > .menu__item{
+    display: inline;
+}
+.restaurant-menu-item > .menu__item > a{
+    cursor: pointer;
 }
 .restaurant-content-end > a{
     display: block;
