@@ -22,19 +22,21 @@ if ($restaurant_found) {
 <?php endforeach; ?>
 
 
-<table>
+<table class="table table-dark table-hover list-table">
     <?php foreach ($all_products_for as $product) : ?>
     <tr>
         <td><?php echo $product->get_name(); ?></td>
         <td>
             <?php echo $product->get_price(); ?>
         </td>
-        <td><a
+        <td class="table-warning"><a
                 href="<?php echo SITE_URL . '/admin?action=list-restaurants&upd-product=' . $product->get_id(); ?>&hash=<?php echo generate_hash('upd-product-' . $product->get_id()); ?>">Modificar
-                item</a></td>
-        <td><a
+                item</a>
+        </td>
+        <td class="table-danger"><a
                 href="<?php echo SITE_URL . '/admin?action=list-restaurants&delete-product=' . $product->get_id(); ?>&hash=<?php echo generate_hash('delete-product-' . $product->get_id()); ?>">Eliminar
-                item</a></td>
+                item</a>
+        </td>
     </tr>
     <?php endforeach; ?>
 </table>

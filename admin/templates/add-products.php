@@ -31,9 +31,9 @@ if (isset($_POST['submit-add-product'])) {
 <h2>Agregar mas platos</h2>
 
 <?php if ($error) : ?>
-<div class="error">
-    Error en el formulario
-</div>
+    <div class="alert alert-danger" role="alert">
+        Error en el formulario
+    </div>
 <?php endif; ?>
 <?php
 $restaurant_found = false;
@@ -47,31 +47,25 @@ if ($restaurant_found) {
 }
 ?>
 
-
-
 <form method="post" action="">
     <?php if ($restaurant_found) : ?>
-    <?php foreach ($all_restaurants as $restaurant) : ?>
+        <?php foreach ($all_restaurants as $restaurant) : ?>
+            <div class="mb-3">
+                <label for="name">Nombre (requerido)</label>
+                <input type="text" name="name" class="form-control" id="name">
+            </div>
+            <div class="mb-3">
+                <label for="name">Precio (requerido)</label>
+                <input type="varchar" name="price" class="form-control" id="name">
+            </div>
+            <input type="hidden" name="id-restaurant" class="form-control" id="id-restaurant" value="<?php echo $restaurant->get_id(); ?>">
+            <div class="col-auto">
+                <input type="submit" name="submit-add-product" class="btn btn-success" value="Nuevo plato">
+            </div>
 
-
-    <label for="name">Nombre (requerido)</label>
-    <input type="text" name="name" id="name">
-
-    <label for="name">Precio (requerido)</label>
-    <input type="varchar" name="price" id="name">
-
-    <input type="hidden" name="id-restaurant" id="id-restaurant" value="<?php echo $restaurant->get_id(); ?>">
-
-    <p>
-        <input type="submit" name="submit-add-product" value="Nuevo plato">
-    </p>
-
-    <?php endforeach; ?>
+        <?php endforeach; ?>
     <?php endif; ?>
 </form>
-<div class="restaurant-content-end">
-    <a href="<?php echo SITE_URL . '/admin/'; ?>">Volver
-    </a>
-</div>
+
 
 <?php require __DIR__ . '/../../templates/footer.php' ?>

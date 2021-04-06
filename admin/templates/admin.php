@@ -3,12 +3,18 @@
 
 
 <h2>Administración</h2>
-<ul>
-    <li><a href="?action=list-restaurants">Listado de restaurants</a></li>
-    <li><a href="?action=new-restaurant">Nuevo restaurant</a></li>
-    <li><a href="?action=list-users">Listado de users</a></li>
-    <li><a href="?action=new-admin">Nuevo admin</a></li>
 
-</ul>
+<div class="list-group">
+
+    <a href="?action=list-restaurants" class="list-group-item list-group-item-action p-1 list-group-item-dark">Listado
+        de restaurants</a>
+    <a href="?action=new-restaurant" class="list-group-item list-group-item-action p-1 list-group-item-dark">Nuevo
+        restaurant</a>
+    <a href="?action=list-users" class="list-group-item list-group-item-action p-1 list-group-item-dark">Listado de
+        users</a>
+    <a href="?action=new-admin" class="list-group-item list-group-item-action p-1 list-group-item-dark">Nuevo
+        admin</a>
+</div>
+
 
 <?php require __DIR__ . '/../../templates/footer.php' ?>

@@ -7,10 +7,8 @@ $error = false;
 $name = '';
 $logo = '';
 
-
 if (isset($_POST['submit-new-restaurant'])) {
     //se ha enviado el formulario
-
 
     $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
     // $logo = filter_input(INPUT_POST, 'logo', FILTER_SANITIZE_STRING);
@@ -39,26 +37,26 @@ if (isset($_POST['submit-new-restaurant'])) {
 <h2>Crear nuevo restaurant</h2>
 
 <?php if ($error) : ?>
-    <div class="error">
-        Error en el formulario
-    </div>
+<div class="alert alert-danger" role="alert">
+    Error en el formulario
+</div>
 <?php endif; ?>
 
 <form method="post" action="" enctype="multipart/form-data">
 
-    <label for="name">Nombre (requerido)</label>
-    <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($name, ENT_QUOTES); ?>">
+    <div class="mb-3">
+        <label for="name">Nombre (requerido)</label>
+        <input type="text" class="form-control" name="name" id="name"
+            value="<?php echo htmlspecialchars($name, ENT_QUOTES); ?>">
+    </div>
+    <div class="mb-3">
+        <label for="logo">Logo (requerido)</label>
+        <input type="file" name="logo" id="logo" class="form-control" accept="image/x-png,image/gif,image/jpeg"
+            multiple>
+    </div>
+    <div class="col-auto">
+        <input type="submit" name="submit-new-restaurant" class="btn btn-success" value="Nuevo restaurante">
+    </div>
 
-    <label for="logo">Logo (requerido)</label>
-    <input type="file" name="logo" id="logo" accept="image/x-png,image/gif,image/jpeg" multiple>
 
-    <p>
-        <input type="submit" name="submit-new-restaurant" value="Nuevo restaurant">
-    </p>
-</form>
-<div class="restaurant-content-end">
-    <a href="<?php echo SITE_URL . '/admin/'; ?>">Volver
-    </a>
-</div>
-
-<?php require __DIR__ . '/../../templates/footer.php' ?>
+    <?php require __DIR__ . '/../../templates/footer.php' ?>

@@ -10,7 +10,7 @@ if (isset($_POST['submit-login'])) {
         die('con que hackeando ehhh¿?¿?');
     }
 
-    if (empty($_POST['username']) && empty($_POST['password'])) {
+    if (empty($_POST['username']) || empty($_POST['password'])) {
         $error = true;
     } else if (!empty($_POST['username']) && !empty($_POST['password'])) {
         $records = $conn->prepare('SELECT id, username, password FROM users WHERE username = :username');
@@ -20,46 +20,17 @@ if (isset($_POST['submit-login'])) {
 
         $message = '';
 
-        if (count($results) > 0 && $results['password']) {
+        if ($results == null) {
+            $error = true;
+        } elseif (count($results) > 0 && $results['password']) {
             $_SESSION['user_id'] = $results['id'];
             redirect_to("index.php");
-        } else {
-            $message = 'Sorry, those credentials do not match';
         }
+        $message = 'Sorry, those credentials do not match';
+        $error = true;
     }
-    // if (isset($_POST['username']) && isset($_POST['password'])) {
-    //     $username = $_POST['username'];
-    //     $password = $_POST['password'];
-    //     global $conn;
-    //     $query = $conn->prepare('SELECT * FROM users WHERE username = :username AND password = :password');
-    //     $query->execute(['username' => $username, 'password' => $password]);
-    //     $row = $query->fetch(PDO::FETCH_NUM);
-    //     if ($row) {
-    //         //valor
-    //         $role = $row[6];
-    //         $_SESSION['role'] = $role;
-    //         switch ($_SESSION['role']) {
-    //             case 0:
-    //                 redirect_to('index.php');
-    //                 break;
-    //             case 1:
-    //                 redirect_to('index.php');
-    //                 break;
-
-    //             default:
-
-    //                 break;
-    //         }
-    //     } else {
-    //         //no existe
-    //         echo 'El usario no existe';
-    //     }
-    // }
 }
 
-// if (is_logged_in()) {
-//     redirect_to('index.php');
-// }
 
 ?>
 
@@ -72,23 +43,25 @@ if (isset($_POST['submit-login'])) {
 <h2>Login</h2>
 
 <?php if ($error) : ?>
-<div class="error">
+<div class="alert alert-danger" role="alert">
     <?php echo 'Error de usuario o contraseña'; ?>
 </div>
 <?php endif; ?>
 
 <form action="" method="post">
-    <label for="username">Usuario</label>
-    <input type="text" name="username" id="username">
 
-    <label for="password">Contraseña</label>
-    <input type="password" name="password" id="password">
-
+    <div class="mb-3">
+        <label for="username" class="form-label">Usuario</label>
+        <input type="text" class="form-control" name="username" id="username">
+    </div>
     <input type="hidden" name="hash" value="<?php echo htmlspecialchars(generate_hash('login'), ENT_QUOTES); ?>">
-
-    <p>
-        <input type="submit" name="submit-login" value="Login">
-    </p>
+    <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" name="password" id="password">
+    </div>
+    <div class="col-auto">
+        <input type="submit" name="submit-login" class="btn btn-warning" value="Login">
+    </div>
 </form>
 
 <?php require('templates/footer.php'); ?>

@@ -1,42 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <!-- <head> -->
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sistema de gestion de los restaurantes</title>
-<link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/global.css">
-<link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/main.css">
-<link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/styles.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/style.css">
+<script src="https://kit.fontawesome.com/8f4fce04f5.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
-    <header>
-        <nav id="site-navigation" class="row row-center" role="navigation">
-            <div class="column">
-                <h1>
-                    <a href="index.php">Sistema de restaurantes</a>
-                </h1>
-                <ul class="main-menu column clearfix">
+<body class="d-flex h-100 text-center text-white bg-dark">
+
+    <div class="cover-container container-fluid d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0"><a href="<?php echo SITE_URL; ?>/index.php">Sistema de restaurantes</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-center">
                     <?php if (empty($user_ses)) : ?>
-                    <li><a href="<?php echo SITE_URL; ?>/index.php">Home</a></li>
-                    <li><a href="<?php echo SITE_URL; ?>/login.php">Login</a></li>
-                    <li><a href="<?php echo SITE_URL; ?>/signup.php">SignUp</a></li>
+                    <a href="<?php echo SITE_URL; ?>/index.php" class="nav-link" aria-current="page">Home</a>
+                    <a href="<?php echo SITE_URL; ?>/login.php" class="nav-link">Login</a>
+                    <a href="<?php echo SITE_URL; ?>/signup.php" class="nav-link">SignUp</a>
                     <?php else : ?>
                     <?php if ($user_ses['id_role'] == '1') : ?>
-                    <li><a href="<?php echo SITE_URL; ?>/index.php">Home</a></li>
-                    <li><a href="<?php echo SITE_URL; ?>/?logout=true">Logout</a></li>
-                    <li><a href="<?php echo SITE_URL; ?>/admin">Administración</a></li>
+                    <a href="<?php echo SITE_URL; ?>/index.php" class="nav-link ">Home</a>
+                    <a href="<?php echo SITE_URL; ?>/?logout=true" class="nav-link ">Logout</a>
+                    <a href="<?php echo SITE_URL; ?>/admin" class="nav-link ">Administración</a>
+
 
                     <?php else : ?>
-                    <li><a href="<?php echo SITE_URL; ?>/index.php">Home</a></li>
-                    <li><a href="<?php echo SITE_URL; ?>/?logout=true">Logout</a></li>
+                    <a href="<?php echo SITE_URL; ?>/index.php" class="nav-link 3">Home</a>
+                    <a href="<?php echo SITE_URL; ?>/?logout=true" class="nav-link ">Logout</a>
+                    <a href="<?php echo SITE_URL . '/pdo/view_cart.php'; ?>" class="ml-2"><i
+                            class="fas fa-shopping-cart">Carrito</i>
+                    </a>
                     <?php endif; ?>
                     <?php endif; ?>
-                </ul>
+                </nav>
+
             </div>
-        </nav>
-    </header>
-    <main>
-        <div id="content">
+        </header>
+
+        <main class="px-3 mt-5">
+            <div id="content">

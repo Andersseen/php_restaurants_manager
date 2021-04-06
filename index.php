@@ -1,6 +1,9 @@
 <?php require 'init.php'; ?>
-<?php include_once 'procces.php'; ?>
+<?php include_once './pdo/pdo.php'; ?>
 <?php
+if (isset($_POST['id_product'])) {
+    add_product_in_cart($_POST['id_product']);
+}
 
 $all_restaurants = get_all_restaurants();
 $all_products = get_all_products();
@@ -23,70 +26,81 @@ if (isset($_GET['view'])) {
 ?>
 
 
+
 <?php require 'verification.php' ?>
 <?php require './templates/header.php'; ?>
+
 <?php if (!empty($user_ses)) : ?>
-    <div class="title-username">
-        <h5>Hola</h5>
-        <h5> <?php echo $user_ses['username']; ?></h5>
+<div class="container">
+    <div class="row">
+        <h5 class="text-uppercase fw-bold fst-italic mb-5 col-10 text-start">Hola <?php echo $user_ses['username']; ?>
+        </h5>
+        <a href="<?php echo SITE_URL . '/pdo/view_cart.php'; ?>" class="float-md-end mb-0 col-2"><i
+                class="fas fa-shopping-cart">Carrito</i></a>
     </div>
+</div>
 <?php endif; ?>
 
+
 <?php if (isset($_GET['success'])) : ?>
-    <div class="success">
-
-        <?php echo 'Has creado usuario correctamente!'; ?>
-
-    </div>
+<div class="alert alert-success" role="alert">
+    <?php echo 'Has creado usuario correctamente!'; ?>
+</div>
+<?php endif; ?>
+<?php if (isset($_GET['success-add-order'])) : ?>
+<div class="alert alert-success" role="alert">
+    Muchas gracias por elegir nosotros!
+</div>
 <?php endif; ?>
 
 <div class="restaurants">
     <?php foreach ($all_restaurants as $restaurant) : ?>
-        <?php require './templates/article-restaurant.php'; ?>
+    <?php require './templates/article-restaurant.php'; ?>
 
 
     <?php endforeach; ?>
     <?php if ($restaurant_found) : ?>
 
-        <div class="restaurant-content">
+    <div class="restaurant-content container">
+        <div class="row">
+            <div class="col-4">
+                <img class="img__item" src="<?php echo $restaurant->get_logo(); ?>" />
+            </div>
 
-            <img class="img__item" src="<?php echo $restaurant->get_logo(); ?>" />
-            <div class="restaurant-menu">
+            <div class="restaurant-menu col-8">
                 <h4>Menu</h4>
                 <?php foreach ($all_products_for as $product) : ?>
-                    <div class="restaurant-menu-item">
-                        <div class="menu__item">
+                <div class="restaurant-menu-item container">
+                    <div class="row">
+                        <div class="menu__item row pb-2">
 
-                            <?php echo $product->get_name(); ?>
-                            <?php echo $product->get_price(); ?>
-                            <form action="" method="post">
+                            <div class="col-4 "><?php echo $product->get_name(); ?></div>
+                            <div class="col-4"><?php echo $product->get_price(); ?></div>
+
+                            <form action="" method="post" class=" col-4">
                                 <input type="hidden" name="id_product" value="<?php echo $product->id ?>">
-                                <button>Agregar al carrito</button>
+                                <button class="btn btn-success">+</button>
                             </form>
                         </div>
                     </div>
+                </div>
 
                 <?php endforeach; ?>
             </div>
+        </div>
 
-        <?php else : ?>
-
-            <a href="?view=<?php echo $restaurant->get_id(); ?>">
-
-                <img src="<?php $restaurant->get_logo(); ?>" />
-            </a>
 
         <?php endif; ?>
-        </div>
-        <?php require './templates/restaurant-content-end.php'; ?>
+    </div>
+    <?php require './templates/restaurant-content-end.php'; ?>
 
 
 
 </div>
-<div class="restaurant-content-end">
-    <a href="<?php echo SITE_URL . '/pdo/view_cart.php'; ?>">home
+<!-- <div class="view-cart">
+    <a href="<?php echo SITE_URL . '/pdo/view_cart.php'; ?>"><i class="fas fa-shopping-cart">Carrito</i>
     </a>
-</div>
+</div> -->
 
 
 <?php require './templates/footer.php'; ?>
