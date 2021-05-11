@@ -8,7 +8,7 @@ if (isset($_POST['id_product'])) {
 $all_restaurants = get_all_restaurants();
 $all_products = get_all_products();
 
-//Nueva Lógica para mostrar un post u otro individualemnte cogiéndolos de la bbdd
+
 $restaurant_found = false;
 $product_found = false;
 if (isset($_GET['view'])) {
@@ -76,11 +76,14 @@ if (isset($_GET['view'])) {
 
                             <div class="col-4 "><?php echo $product->get_name(); ?></div>
                             <div class="col-4"><?php echo $product->get_price(); ?></div>
-
+                            <?php if (!empty($user_ses)) : ?>
                             <form action="" method="post" class=" col-4">
                                 <input type="hidden" name="id_product" value="<?php echo $product->id ?>">
                                 <button class="btn btn-success">+</button>
                             </form>
+                            <?php endif; ?>
+
+
                         </div>
                     </div>
                 </div>
@@ -89,18 +92,12 @@ if (isset($_GET['view'])) {
             </div>
         </div>
 
-
         <?php endif; ?>
     </div>
     <?php require './templates/restaurant-content-end.php'; ?>
 
-
-
 </div>
-<!-- <div class="view-cart">
-    <a href="<?php echo SITE_URL . '/pdo/view_cart.php'; ?>"><i class="fas fa-shopping-cart">Carrito</i>
-    </a>
-</div> -->
+
 
 
 <?php require './templates/footer.php'; ?>

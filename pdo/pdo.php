@@ -1,7 +1,5 @@
 <?php
 
-
-
 function connetion()
 {
     $server = 'localhost:3306';
@@ -25,32 +23,29 @@ function add_product_in_cart($idProduct)
     return $sentencia->execute([$idSession, $idProduct]);
 }
 
-function delete_product_in_cart($idProduct)
+function delete_product_in_cart($idProduct, $id)
 {
     $db = connetion();
     $idSesion = session_id();
-    $sentencia = $db->prepare("DELETE FROM shopping_cart WHERE id_session = ? AND id_product = ?");
-    return $sentencia->execute([$idSesion, $idProduct]);
+    $sentencia = $db->prepare("DELETE FROM shopping_cart WHERE id_session = ? AND id_product = ? AND num = ?");
+    return $sentencia->execute([$idSesion, $idProduct, $id]);
 }
 
 function get_id_products_in_cart()
 {
     $db = connetion();
-    $sentencia = $db->prepare("SELECT id_product FROM shopping_cart WHERE id_session = ?");
+    $sentencia = $db->prepare("SELECT shopping_cart.num FROM shopping_cart WHERE id_session = ?");
     $idSession = session_id();
     $sentencia->execute([$idSession]);
-    return $sentencia->fetchAll(PDO::FETCH_COLUMN);
+    return $sentencia->fetchAll();
 }
 function get_products_in_cart()
 {
     $db = connetion();
-    $sentencia = $db->prepare("SELECT products.id, products.name, products.price, products.id_restaurant
-     FROM products
-     INNER JOIN shopping_cart
-     ON products.id = shopping_cart.id_product
-     WHERE shopping_cart.id_session = ?");
-    $idSession = session_id();
-    $sentencia->execute([$idSession]);
+    $sentencia = $db->prepare("SELECT products.id, products.name, products.price, products.id_restaurant, shopping_cart.num 
+    FROM products, shopping_cart 
+    WHERE products.id = shopping_cart.id_product");
+    $sentencia->execute();
     return $sentencia->fetchAll();
 }
 

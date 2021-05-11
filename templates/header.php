@@ -34,8 +34,7 @@
                     <?php else : ?>
                     <a href="<?php echo SITE_URL; ?>/index.php" class="nav-link 3">Home</a>
                     <a href="<?php echo SITE_URL; ?>/?logout=true" class="nav-link ">Logout</a>
-                    <a href="<?php echo SITE_URL . '/pdo/view_cart.php'; ?>" class="ml-2"><i
-                            class="fas fa-shopping-cart">Carrito</i>
+
                     </a>
                     <?php endif; ?>
                     <?php endif; ?>

@@ -9,16 +9,14 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 switch ($action) {
     case 'new-restaurant': {
-            //formulario de new post
-            //procesando el formulario
+
 
             require 'templates/new-restaurant.php';
             break;
         }
     case 'list-restaurants': {
-            //listado de restaurants
 
-            //borrar restaurant de la base de datos
+
             if (isset($_GET['delete-restaurant'])) {
                 $id = $_GET['delete-restaurant'];
 
@@ -60,7 +58,7 @@ switch ($action) {
     case 'list-users': {
 
 
-            //borrar user de la base de datos
+
             if (isset($_GET['delete-user'])) {
                 $id = $_GET['delete-user'];
 
@@ -98,8 +96,7 @@ switch ($action) {
             break;
         }
     case 'new-admin': {
-            //formulario de new post
-            //procesando el formulario
+
 
             require 'templates/new-admin.php';
             break;

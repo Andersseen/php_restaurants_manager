@@ -77,6 +77,9 @@ a:hover{
 /*
 *   MAIN Styles
 */
+h2.restaurant-title > a:hover{
+  color: #000;
+}
 .cover-container {
     max-width: 50em;
 }
@@ -89,7 +92,7 @@ img.img__item{
 
 .list-table a{
     color: #000;
-    transition: all .3 ease;
+    transition: all .1 ease;
 }
 .list-table a:hover{
     color: #fff;
